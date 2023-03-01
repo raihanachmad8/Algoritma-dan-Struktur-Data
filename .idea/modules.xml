@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/jobsheet1/jobsheet1.iml" filepath="$PROJECT_DIR$/jobsheet1/jobsheet1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jobsheet2/jobsheet2.iml" filepath="$PROJECT_DIR$/jobsheet2/jobsheet2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jobsheet3/jobsheet3.iml" filepath="$PROJECT_DIR$/jobsheet3/jobsheet3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/strukturData.iml" filepath="$PROJECT_DIR$/.idea/strukturData.iml" />
+    </modules>
+  </component>
+</project>

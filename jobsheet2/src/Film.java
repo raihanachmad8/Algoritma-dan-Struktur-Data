@@ -28,7 +28,7 @@ public class Film {
             jumlahTiket -= n;
         }
     }
-    int  totalRevenue() {
-        return jumlahTiket * hargaTiket;
-    }
+        int  totalRevenue() {
+            return jumlahTiket * hargaTiket;
+        }
 }

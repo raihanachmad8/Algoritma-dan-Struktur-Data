@@ -30,7 +30,7 @@ public class Latihan2 {
     }
 
     void printPosition() {
-        
+
     }
     void detectCollision(int x, int y) {
         System.out.println("Game Over");
