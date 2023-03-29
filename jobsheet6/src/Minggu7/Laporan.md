@@ -2,8 +2,8 @@
 
 ---
 
-NIM : 2241720192
-Nama : Achmad Raihan Fahrezi Effendy
+NIM : 2241720192 \
+Nama : Achmad Raihan Fahrezi Effendy \
 Kelas : TI 1D
 
 ---
