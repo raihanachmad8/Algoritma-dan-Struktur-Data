@@ -572,5 +572,5 @@ public class Tugas2Main {
 
 ```
 ### Output
-![image.png](.\Assets\Laporan Tugas2.1.png)
+<img src=".\Assets\Laporan Tugas2.1.png" alt="image.png"/>
 
