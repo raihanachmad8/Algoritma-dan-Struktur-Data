@@ -4,27 +4,28 @@ public class Main {
     public static void main(String[] args) {
 
         String nama = "Achmad Raihan Fahrezi Effendy";
-        for (int i = 0; i < nama.length(); i++) {
-            System.out.print(konversiNama(nama)[i] + " ");
-        }
+
         int[] nim =  {2,2,4,1,7,2,0,1,9,2};
         System.out.println(nama);
 
         int[] hasil = konversiNama(nama);
-        int[] result = new int[nama.length() + nim.length];
+        System.out.print("Hasil konversi : ");
+        for (int h : hasil) {
+            System.out.print(h + ",");
+        }
+
+        int[] result = new int[hasil.length + nim.length];
 
         for (int i = 0; i < nim.length; i++) {
             result[i] = nim[i];
         }
         int k = 0;
         for (int i = nim.length; i < result.length; i++) {
-//            for (int j = 0; j < hasil.length; j++) {
                 result[i] = hasil[k++];
-//            }
         }
         int[] sort = insertionSort(result);
 
-        System.out.print("result = ");
+        System.out.print("\nresult = ");
         for (int i = 0; i < sort.length; i++) {
             System.out.print(sort[i] + ",");
         }
@@ -35,11 +36,20 @@ public class Main {
 
     static int[] konversiNama(String value) {
         char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-        int[] result = new int[value.length()];
+        int space = 0;
+        for (int i = 0; i < value.length(); i++) {
+            if (value.trim().charAt(i) == ' ') {
+                space++;
+            }
+        }
+        int[] result = new int[value.length() - space];
+        int index = 0;
         for (int i = 0; i < value.trim().length(); i++) {
+            if (value.charAt(i) == ' ') continue;
             for (int j = 0; j < alphabet.length; j++) {
-                if (value.trim().toLowerCase().charAt(i) == alphabet[j] && value.charAt(i) != ' ') {
-                    result[i] = j+1;
+                if (value.trim().toLowerCase().charAt(i) == alphabet[j]) {
+                    result[index++] = (j+1);
+                    break;
                 }
             }
         }
