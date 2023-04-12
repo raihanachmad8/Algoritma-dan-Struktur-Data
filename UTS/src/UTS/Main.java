@@ -20,7 +20,7 @@ public class Main {
 //            }
         }
         int[] sort = bubbleSort(result);
-        
+
         System.out.print("result = ");
         for (int i = 0; i < sort.length; i++) {
             System.out.print(sort[i] + ",");
@@ -44,10 +44,10 @@ public class Main {
     }
 
     static int[] bubbleSort(int[] value) {
-        for (int i = 0; i <  - 1; i++) {
+        for (int i = 0; i < value.length - 1; i++) {
             for (int j = 1; j < value.length - i; j++ ) {
-                if (value[j] > value[j - 1]) {
-                    int tmp = j;
+                if (value[j] < value[j - 1]) {
+                    int tmp = value[j];
                     value[j] = value[j - 1];
                     value[j - 1] = tmp;
                 }
@@ -55,6 +55,7 @@ public class Main {
         }
         return value;
     }
+
 
     static  int FindBinarySearch(int[] value, int cari, int left, int right) {
         int mid;
