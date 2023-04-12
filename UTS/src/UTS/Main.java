@@ -4,6 +4,9 @@ public class Main {
     public static void main(String[] args) {
 
         String nama = "Achmad Raihan Fahrezi Effendy";
+        for (int i = 0; i < nama.length(); i++) {
+            System.out.print(konversiNama(nama)[i] + " ");
+        }
         int[] nim =  {2,2,4,1,7,2,0,1,9,2};
         System.out.println(nama);
 
@@ -19,7 +22,7 @@ public class Main {
                 result[i] = hasil[k++];
 //            }
         }
-        int[] sort = bubbleSort(result);
+        int[] sort = insertionSort(result);
 
         System.out.print("result = ");
         for (int i = 0; i < sort.length; i++) {
@@ -27,7 +30,7 @@ public class Main {
         }
 
         System.out.println("\nBinary Search (2): ");
-        System.out.println(FindBinarySearch(sort, 2, 0, sort.length));
+        System.out.println(sequentialSearch(sort, 2));
     }
 
     static int[] konversiNama(String value) {
@@ -43,32 +46,30 @@ public class Main {
         return result;
     }
 
-    static int[] bubbleSort(int[] value) {
-        for (int i = 0; i < value.length - 1; i++) {
-            for (int j = 1; j < value.length - i; j++ ) {
-                if (value[j] < value[j - 1]) {
-                    int tmp = value[j];
-                    value[j] = value[j - 1];
-                    value[j - 1] = tmp;
-                }
+    static int[] insertionSort(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
             }
+            arr[j + 1] = key;
         }
-        return value;
+        return arr;
     }
 
 
-    static  int FindBinarySearch(int[] value, int cari, int left, int right) {
-        int mid;
-        if (right >= left) {
-            mid = left + (right - left) / 2;
-            if (cari == value[mid]) {
-                return mid;
-            } else if(value[mid] > cari) {
-                return FindBinarySearch(value,cari, left, mid - 1);
-            } else {
-                return FindBinarySearch(value,cari,mid + 1, right);
+    public static int sequentialSearch(int[] arr, int target) {
+        int posisi = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == target && posisi == -1) {
+                posisi = i;
+            } else if (arr[i] == target && posisi != -1) {
+                System.err.println("Peringantan terdapat data yang sama!!");
             }
         }
-        return -1;
+        return posisi;
     }
+
 }
