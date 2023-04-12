@@ -6,35 +6,37 @@ public class Main {
         String nama = "Achmad Raihan Fahrezi Effendy";
         int[] nim =  {2,2,4,1,7,2,0,1,9,2};
         System.out.println(nama);
+
         int[] hasil = konversiNama(nama);
         int[] result = new int[nama.length() + nim.length];
 
         for (int i = 0; i < nim.length; i++) {
             result[i] = nim[i];
         }
-
+        int k = 0;
         for (int i = nim.length; i < result.length; i++) {
-            for (int j = 0; j < hasil.length; j++) {
-                result[i] = hasil[j];
-            }
+//            for (int j = 0; j < hasil.length; j++) {
+                result[i] = hasil[k++];
+//            }
         }
         int[] sort = bubbleSort(result);
-        System.out.println("result = ");
+        
+        System.out.print("result = ");
         for (int i = 0; i < sort.length; i++) {
             System.out.print(sort[i] + ",");
         }
 
-        System.out.println("Binary Search : ");
-        System.out.println(FindBinarySearch(sort, 13, 0, sort.length));
+        System.out.println("\nBinary Search (2): ");
+        System.out.println(FindBinarySearch(sort, 2, 0, sort.length));
     }
 
     static int[] konversiNama(String value) {
-        char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g','h','i','j','k','l','m','o','p','q','r','s','t','u','v','w','x','y','z'};
+        char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
         int[] result = new int[value.length()];
         for (int i = 0; i < value.trim().length(); i++) {
             for (int j = 0; j < alphabet.length; j++) {
-                if (value.trim().toLowerCase().charAt(i) == alphabet[j]) {
-                    result[i] += j+1;
+                if (value.trim().toLowerCase().charAt(i) == alphabet[j] && value.charAt(i) != ' ') {
+                    result[i] = j+1;
                 }
             }
         }
