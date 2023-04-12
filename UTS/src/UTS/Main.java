@@ -29,7 +29,7 @@ public class Main {
             System.out.print(sort[i] + ",");
         }
 
-        System.out.println("\nBinary Search (2): ");
+        System.out.println("\nSequantial Search (2): ");
         System.out.println(sequentialSearch(sort, 2));
     }
 
