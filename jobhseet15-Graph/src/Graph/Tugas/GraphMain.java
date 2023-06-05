@@ -9,15 +9,15 @@ public class GraphMain {
         System.out.print("Masukkan jumlah vertex: ");
         int vertexCount = scanner.nextInt();
 
-        Graph<Integer> graph = new Graph<>(vertexCount, false);
+        Graph<String> graph = new Graph<>(vertexCount, false);
 
         System.out.print("Masukkan jumlah edge: ");
         int edgeCount = scanner.nextInt();
 
         System.out.println("Masukkan edge <source> <destination>:");
         for (int i = 0; i < edgeCount; i++) {
-            int source = scanner.nextInt();
-            int destination = scanner.nextInt();
+            String source = scanner.next();
+            String destination = scanner.next();
             graph.addEdge(source, destination);
         }
 
@@ -26,7 +26,7 @@ public class GraphMain {
 
         System.out.print("Masukkan vertex untuk menampilkan derajat: ");
         int source = scanner.nextInt();
-        graph.degree(source);
+//        graph.degree(source);
 
         System.out.print("Masukkan edge yang ingin dihapus <source> <destination>: ");
         int removeSource = scanner.nextInt();

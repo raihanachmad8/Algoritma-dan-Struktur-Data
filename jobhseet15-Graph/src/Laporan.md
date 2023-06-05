@@ -1150,7 +1150,7 @@ Pertanyaan
         
      + Output
 
-       ![image.png](assets/Tugas4.1.1.png)
+      
      
      + GraphArray
 
@@ -1239,7 +1239,7 @@ Pertanyaan
               ```
        + Output
 
-         ![image.png](assets/Tugas4.2.1.png)
+
 
 
 

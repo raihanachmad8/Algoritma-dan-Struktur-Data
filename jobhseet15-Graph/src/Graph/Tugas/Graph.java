@@ -4,6 +4,7 @@ public class Graph<T> {
     int vertex;
     DoubleLinkedList<T>[] list;
     Node right;
+    int index = 0;
     boolean isDirected; // variable to determine the type of graph
 
     public Graph(int vertex, boolean isDirected) {
@@ -16,10 +17,51 @@ public class Graph<T> {
     }
 
     public void addEdge(T source, T destination) {
-        list[(int) source].addFirst(destination);
-        if (!isDirected) {
-            list[(int) destination].addFirst(source);
+//        int index = 0;
+        boolean addStatus = false;
+        for (int i = 0; i < index; i++) {
+            if (list[i].head != null && list[i].head.data.equals(source)) {
+                list[i].addLast(destination);
+                addStatus = true;
+                if (!isDirected) {
+                    boolean destinationExists = false;
+                    Node<T> currentNode = list[i].head.next;
+                    while (currentNode != null) {
+                        if (currentNode.data.equals(destination)) {
+                            destinationExists = true;
+                            break;
+                        }
+                        currentNode = currentNode.next;
+                    }
+                    if (!destinationExists) {
+                        list[i].addLast(destination);
+                    }
+                }
+                break;
+            }
         }
+
+        if (!addStatus) {
+            DoubleLinkedList<T> newLinkedList = new DoubleLinkedList<>();
+            newLinkedList.addFirst(source);
+            newLinkedList.addLast(destination);
+
+            list[index] = newLinkedList;
+
+            if (!isDirected) {
+                DoubleLinkedList<T> newLinkedList2 = new DoubleLinkedList<>();
+                newLinkedList2.addFirst(destination);
+                newLinkedList2.addLast(source);
+                list[index + 1] = newLinkedList2;
+            }
+            index++;
+        }
+
+
+//        list[(int) source].addFirst(destination);
+//        if (!isDirected) {
+//            list[(int) destination].addFirst(source);
+//        }
     }
 
     public void degree(T source) throws Exception {
@@ -39,6 +81,7 @@ public class Graph<T> {
             System.out.println("Outdegree of vertex " + source + " : " + totalOut);
             System.out.println("degree vertex " + source + " : " + (totalIn + totalOut));
         }
+
     }
 
     public void removeEdge(int source, int destination) throws Exception {
@@ -58,9 +101,11 @@ public class Graph<T> {
     public void printGraph() throws Exception {
         for (int i = 0; i < vertex; i++) {
             if (list[i].size > 0) {
-                System.out.print("Vertex " + i + " is connected to: ");
-                for (int j = 0; j < list[i].size; j++) {
-                    System.out.print(list[i].get(j) + " ");
+                System.out.print("Vertex " + list[i].head.data + " is connected to: ");
+                Node<T> currentNode = list[i].head.next;
+                while (currentNode != null) {
+                    System.out.print(currentNode.data + " ");
+                    currentNode = currentNode.next;
                 }
                 System.out.println();
             }
