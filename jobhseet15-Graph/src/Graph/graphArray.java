@@ -16,6 +16,14 @@ public class graphArray {
             System.out.println("Vertex tidak ada");
         }
     }
+//    private int getIndex(T source) {
+//        for (int i = 0; i < vertex; i++) {
+//            if (list[i] == source || list[i].head.data.equals(source)) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
 
     public int getEdge(int to, int from) {
         try {

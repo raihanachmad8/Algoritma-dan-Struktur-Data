@@ -8,9 +8,14 @@ public class GraphMain {
 
         System.out.print("Masukkan jumlah vertex: ");
         int vertexCount = scanner.nextInt();
-
-        Graph<String> graph = new Graph<>(vertexCount, false);
-
+        System.out.print("Masukkan direct/undirected [1|0]: ");
+        int directed = scanner.nextInt();
+        Graph<String> graph = new Graph<>(vertexCount, directed == 1);
+        System.out.println("Masukkan data vertex:");
+        for (int i = 0; i < vertexCount; i++) {
+            String vertex = scanner.next();
+            graph.addVertex(i, vertex);
+        }
         System.out.print("Masukkan jumlah edge: ");
         int edgeCount = scanner.nextInt();
 
@@ -25,12 +30,12 @@ public class GraphMain {
         graph.printGraph();
 
         System.out.print("Masukkan vertex untuk menampilkan derajat: ");
-        int source = scanner.nextInt();
-//        graph.degree(source);
+        String source = scanner.next();
+        graph.degree(source);
 
         System.out.print("Masukkan edge yang ingin dihapus <source> <destination>: ");
-        int removeSource = scanner.nextInt();
-        int removeDestination = scanner.nextInt();
+        String removeSource = scanner.next();
+        String removeDestination = scanner.next();
         graph.removeEdge(removeSource, removeDestination);
 
         System.out.println("Graph setelah penghapusan edge:");

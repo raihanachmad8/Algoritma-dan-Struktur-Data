@@ -828,329 +828,378 @@ Pertanyaan
       }
    }
    ```
-4. Ubahlah tipe data vertex pada seluruh graph pada praktikum 2.1 dan 2.2 dari Integer menjadi
-   tipe generic agar dapat menerima semua tipe data dasar Java! Misalnya setiap vertex yang
-   awalnya berupa angka 0,1,2,3, dst. selanjutnya ubah menjadi suatu nama daerah seperti Gresik,
-   Bandung, Yogya, Malang, dst
-   Output
+   4. Ubahlah tipe data vertex pada seluruh graph pada praktikum 2.1 dan 2.2 dari Integer menjadi
+      tipe generic agar dapat menerima semua tipe data dasar Java! Misalnya setiap vertex yang
+      awalnya berupa angka 0,1,2,3, dst. selanjutnya ubah menjadi suatu nama daerah seperti Gresik,
+      Bandung, Yogya, Malang, dst
+      Output
 
-   + Graph
+      + Graph
 
-     + Kode Program
+        + Kode Program
 
-      Class Node
+         Class Node
      
-      ``` java
-      package Graph.Tugas;
-    
-      public class Node<T> {
-      T data;
-      Node<T> prev, next;
-    
-          public Node(Node<T> prev, T data, Node<T> next) {
-              this.prev = prev;
-              this.data = data;
-              this.next = next;
-          }
-    
-      }
-      ```
-
-      Class DoubleLinkedList
-    
-        ``` java
+         ``` java
          package Graph.Tugas;
     
+         public class Node<T> {
+         T data;
+         Node<T> prev, next;
+    
+             public Node(Node<T> prev, T data, Node<T> next) {
+                 this.prev = prev;
+                 this.data = data;
+                 this.next = next;
+             }
+    
+         }
+         ```
+
+         Class DoubleLinkedList
+    
+           ``` java
+            package Graph.Tugas;
+    
         
-        public class DoubleLinkedList<T> {
-        public Node<T> head;
-        public Node<T> tail;
-        public int size;
+           public class DoubleLinkedList<T> {
+           public Node<T> head;
+           public Node<T> tail;
+           public int size;
         
-            public DoubleLinkedList() {
-                this.head = null;
-                this.tail = null;
-                this.size = 0;
-            }
+               public DoubleLinkedList() {
+                   this.head = null;
+                   this.tail = null;
+                   this.size = 0;
+               }
         
-            public boolean isEmpty() {
-                return head == null;
-            }
+               public boolean isEmpty() {
+                   return head == null;
+               }
         
-            public void addFirst(T data) {
-                Node<T> newNode = new Node<>(null, data, head);
-                if (isEmpty()) {
-                    tail = newNode;
-                } else {
-                    head.prev = newNode;
-                }
-                head = newNode;
-                size++;
-            }
+               public void addFirst(T data) {
+                   Node<T> newNode = new Node<>(null, data, head);
+                   if (isEmpty()) {
+                       tail = newNode;
+                   } else {
+                       head.prev = newNode;
+                   }
+                   head = newNode;
+                   size++;
+               }
         
-            public void addLast(T data) {
-                if (isEmpty()) {
-                    addFirst(data);
-                } else {
-                    tail = tail.next = new Node<>(tail, data, null);
-                    size++;
-                }
-            }
+               public void addLast(T data) {
+                   if (isEmpty()) {
+                       addFirst(data);
+                   } else {
+                       tail = tail.next = new Node<>(tail, data, null);
+                       size++;
+                   }
+               }
         
         
-            public void add(T data, int index) throws Exception {
-                if (isEmpty() || index == 0) {
-                    addFirst(data);
-                } else if (index < 0 || index > size) {
-                    throw new Exception("Nilai indeks diluar batas");
-                } else if (index == size) {
-                    addLast(data);
-                } else {
-                    Node<T> current = head;
-                    int i = 0;
-                    while (i < index - 1) {
-                        current = current.next;
-                        i++;
-                    }
-                    Node newNode = new Node(current, data, current.next);
-                    current.next.prev = newNode;
-                    current.next = newNode;
-                    size++;
-                }
-            }
+               public void add(T data, int index) throws Exception {
+                   if (isEmpty() || index == 0) {
+                       addFirst(data);
+                   } else if (index < 0 || index > size) {
+                       throw new Exception("Nilai indeks diluar batas");
+                   } else if (index == size) {
+                       addLast(data);
+                   } else {
+                       Node<T> current = head;
+                       int i = 0;
+                       while (i < index - 1) {
+                           current = current.next;
+                           i++;
+                       }
+                       Node newNode = new Node(current, data, current.next);
+                       current.next.prev = newNode;
+                       current.next = newNode;
+                       size++;
+                   }
+               }
         
-            public int size() {
-                return size;
-            }
-            public void clear() {
-                head = null;
-                tail = null;
-                size = 0;
-            }
+               public int size() {
+                   return size;
+               }
+               public void clear() {
+                   head = null;
+                   tail = null;
+                   size = 0;
+               }
         
-            public void print() {
-                if (!isEmpty()) {
-                    Node<T> tmp = head;
-                    while (tmp != null) {
-                        System.out.print(tmp.data + "\t");
-                        tmp = tmp.next;
-                    }
-                    System.out.println("\nberhasil diisi");
-                } else {
-                    System.out.println("Linked Lists Kosong");
-                }
-            }
+               public void print() {
+                   if (!isEmpty()) {
+                       Node<T> tmp = head;
+                       while (tmp != null) {
+                           System.out.print(tmp.data + "\t");
+                           tmp = tmp.next;
+                       }
+                       System.out.println("\nberhasil diisi");
+                   } else {
+                       System.out.println("Linked Lists Kosong");
+                   }
+               }
         
-            public T removeFirst() throws Exception {
-                Node<T> tmp = head;
-                if (isEmpty()) {
-                    throw  new Exception("Linked List masih kosong, tidak dapat dihapus");
-                } else if (size == 1) {
-                    removeLast();
-                } else {
-                    head = head.next;
-                    head.prev = null;
-                    size--;
-                }
-                return tmp.data;
-            }
-            public T removeLast() throws Exception{
-                if (isEmpty()) {
-                    throw  new Exception("Linked List masih kosong, tidak dapat dihapus");
-                }
-                Node<T> tmp = tail;
-                if (head.next == null) {
-                    head = tail = null;
-                } else {
-                    tail = tail.prev;
-                    tail.next = null;
-                }
-                size--;
-                return tmp.data;
-            }
-            public T remove(int index) throws Exception {
-                if (isEmpty() || index >= size) {
-                    throw new Exception("Nilai indeks di luar batas");
-                }
-                if (index == 0) {
-                    return removeFirst();
-                } else {
-                    Node<T> current = head;
-                    int i = 0;
-                    while (i < index) {
-                        current = current.next;
-                        i++;
-                    }
-                    if (current == tail) {
-                        tail = tail.prev.next = null;
-                    } else if (current.prev == null) {
-                        current = current.next;
-                        current.prev = null;
-                        head = current;
-                    } else {
-                        current.prev.next = current.next;
-                        current.next.prev = current.prev;
-                    }
-                    size--;
-                    return current.data;
-                }
-            }
+               public T removeFirst() throws Exception {
+                   Node<T> tmp = head;
+                   if (isEmpty()) {
+                       throw  new Exception("Linked List masih kosong, tidak dapat dihapus");
+                   } else if (size == 1) {
+                       removeLast();
+                   } else {
+                       head = head.next;
+                       head.prev = null;
+                       size--;
+                   }
+                   return tmp.data;
+               }
+               public T removeLast() throws Exception{
+                   if (isEmpty()) {
+                       throw  new Exception("Linked List masih kosong, tidak dapat dihapus");
+                   }
+                   Node<T> tmp = tail;
+                   if (head.next == null) {
+                       head = tail = null;
+                   } else {
+                       tail = tail.prev;
+                       tail.next = null;
+                   }
+                   size--;
+                   return tmp.data;
+               }
+               public T remove(int index) throws Exception {
+                   if (isEmpty() || index >= size) {
+                       throw new Exception("Nilai indeks di luar batas");
+                   }
+                   if (index == 0) {
+                       return removeFirst();
+                   } else {
+                       Node<T> current = head;
+                       int i = 0;
+                       while (i < index) {
+                           current = current.next;
+                           i++;
+                       }
+                       if (current == tail) {
+                           tail = tail.prev.next = null;
+                       } else if (current.prev == null) {
+                           current = current.next;
+                           current.prev = null;
+                           head = current;
+                       } else {
+                           current.prev.next = current.next;
+                           current.next.prev = current.prev;
+                       }
+                       size--;
+                       return current.data;
+                   }
+               }
         
-            public T getFirst() throws Exception {
-                if (isEmpty()) {
-                    throw new Exception("Linked List Kosong");
-                }
-                return head.data;
-            }
+               public T getFirst() throws Exception {
+                   if (isEmpty()) {
+                       throw new Exception("Linked List Kosong");
+                   }
+                   return head.data;
+               }
         
-            public T getLast() throws Exception {
-                if (isEmpty()) {
-                    throw new Exception("Linked List Kosong");
-                }
-                return tail.data;
-            }
+               public T getLast() throws Exception {
+                   if (isEmpty()) {
+                       throw new Exception("Linked List Kosong");
+                   }
+                   return tail.data;
+               }
         
-            public T get(int index) throws Exception {
-                if (isEmpty() || index >= size) {
-                    throw new Exception("Nilai indeks di luar batas.");
-                }
-                Node<T> tmp = head;
-                for (int i = 0; i < index; i++) {
-                    tmp = tmp.next;
-                }
-                return tmp.data;
-            }
-        }
-      ```    
+               public T get(int index) throws Exception {
+                   if (isEmpty() || index >= size) {
+                       throw new Exception("Nilai indeks di luar batas.");
+                   }
+                   Node<T> tmp = head;
+                   for (int i = 0; i < index; i++) {
+                       tmp = tmp.next;
+                   }
+                   return tmp.data;
+               }
+           }
+         ```    
       
-     Class Graph
+        Class Graph
             
          ``` java
-             package Graph.Tugas;
-            
-            public class Graph<T> {
-            int vertex;
-            DoubleLinkedList<T>[] list;
-            Node right;
-            boolean isDirected; // variable to determine the type of graph
-            
-                public Graph(int vertex, boolean isDirected) {
-                    this.vertex = vertex;
-                    list = new DoubleLinkedList[vertex];
-                    for (int i = 0; i < vertex; i++) {
-                        list[i] = new DoubleLinkedList<>();
-                    }
-                    this.isDirected = isDirected;
-                }
-            
-                public void addEdge(T source, T destination) {
-                    list[(int) source].addFirst(destination);
-                    if (!isDirected) {
-                        list[(int) destination].addFirst(source);
-                    }
-                }
-            
-                public void degree(T source) throws Exception {
-                    System.out.println("degree vertex " + source + " : " + list[(int) source].size);
-            
-                    if (isDirected) {
-                        int totalIn = 0, totalOut = 0;
-                        for (int i = 0; i < vertex; i++) {
-                            for (int j = 0; j < list[i].size; j++) {
-                                if (list[i].get(j) == source) {
-                                    totalIn++;
-                                }
-                            }
-                            totalOut += list[(int) source].size;
-                        }
-                        System.out.println("Indegree of vertex " + source + " : " + totalIn);
-                        System.out.println("Outdegree of vertex " + source + " : " + totalOut);
-                        System.out.println("degree vertex " + source + " : " + (totalIn + totalOut));
-                    }
-                }
-            
-                public void removeEdge(int source, int destination) throws Exception {
-                    list[source].remove(destination);
-                    if (!isDirected) {
-                        list[destination].remove(source);
-                    }
-                }
-            
-                public void removeAllEdge() {
-                    for (int i = 0; i < vertex; i++) {
-                        list[i].clear();
-                    }
-                    System.out.println("Graph has been cleared");
-                }
-            
-                public void printGraph() throws Exception {
-                    for (int i = 0; i < vertex; i++) {
-                        if (list[i].size > 0) {
-                            System.out.print("Vertex " + i + " is connected to: ");
-                            for (int j = 0; j < list[i].size; j++) {
-                                System.out.print(list[i].get(j) + " ");
-                            }
-                            System.out.println();
-                        }
-                    }
-                    System.out.println();
-                }
-            
-                public boolean graphType() {
-                    return isDirected;
-                }
-            }
+               package Graph.Tugas;
 
-         ```
-        
-        Class GraphMain
-     ``` java
-     package Graph.Tugas;
-
-     import java.util.Scanner;
-
-     public class GraphMain {
-     public static void main(String[] args) throws Exception {
-     Scanner scanner = new Scanner(System.in);
-
-               System.out.print("Masukkan jumlah vertex: ");
-               int vertexCount = scanner.nextInt();
-
-               Graph<Integer> graph = new Graph<>(vertexCount, false);
-
-               System.out.print("Masukkan jumlah edge: ");
-               int edgeCount = scanner.nextInt();
-
-               System.out.println("Masukkan edge <source> <destination>:");
-               for (int i = 0; i < edgeCount; i++) {
-                   int source = scanner.nextInt();
-                   int destination = scanner.nextInt();
-                   graph.addEdge(source, destination);
+               public class Graph<T> {
+               int vertex;
+               DoubleLinkedList<T>[] list;
+               Node right;
+               boolean isDirected; // variable to determine the type of graph
+            
+                   public Graph(int vertex, boolean isDirected) {
+                       this.vertex = vertex;
+                       list = new DoubleLinkedList[vertex];
+                       for (int i = 0; i < vertex; i++) {
+                           list[i] = new DoubleLinkedList<>();
+                       }
+                       this.isDirected = isDirected;
+                   }
+            
+                   public void addVertex(int index, T data) {
+                       DoubleLinkedList<T> newLink = new DoubleLinkedList<>();
+                       newLink.addFirst(data);
+                       list[index] = newLink;
+                   };
+            
+                   public void addEdge(T source, T destination) throws Exception {
+                       int sourceIndex = getIndex(source);
+                       int destinationIndex = getIndex(destination);
+                       list[sourceIndex].add(destination, 1);
+                       if (!isDirected) {
+                           list[destinationIndex].add(source, 1);
+                       }
+                   }
+            
+                   private int getIndex(T source) {
+                       for (int i = 0; i < vertex; i++) {
+                           if (list[i] == source || list[i].head.data.equals(source)) {
+                               return i;
+                           }
+                       }
+                      return -1;
+                   }
+            
+                   public void degree(T source) throws Exception {
+                       System.out.println("degree vertex " + source + " : " + list[getIndex(source)].size);
+            
+                       if (isDirected) {
+                           int totalIn = 0, totalOut = 0;
+                           for (int i = 0; i < vertex; i++) {
+                               for (int j = 0; j < list[i].size; j++) {
+                                   if (list[i].get(j) == source || list[i].get(j).equals(source)) {
+                                       totalIn++;
+                                   }
+                               }
+                               totalOut += list[getIndex(source)].size;
+                           }
+                           System.out.println("Indegree of vertex " + source + " : " + totalIn);
+                           System.out.println("Outdegree of vertex " + source + " : " + totalOut);
+                           System.out.println("degree vertex " + source + " : " + (totalIn + totalOut));
+                       }
+            
+                   }
+            
+                   public void removeEdge(T source, T destination) throws Exception {
+                       int sourceIndex = getIndex(source);
+                       int destinationIndex = getIndex(destination);
+            
+                       if (sourceIndex == -1 || destinationIndex == -1) {
+                           throw new Exception("Nama daerah tidak ditemukan");
+                       }
+            
+                       int index = -1;
+                       for (int i = 0; i < list[sourceIndex].size(); i++) {
+                           if (list[sourceIndex].get(i).equals(destination)) {
+                               index = i;
+                               break;
+                           }
+                       }
+            
+                       if (index != -1) {
+                           list[sourceIndex].remove(index);
+                           if (!isDirected) {
+                               for (int i = 0; i < list[destinationIndex].size(); i++) {
+                                   if (list[destinationIndex].get(i).equals(source)) {
+                                       list[destinationIndex].remove(i);
+                                       break;
+                                   }
+                               }
+                           }
+                       }
+            
+                   }
+            
+                   public void removeAllEdge() {
+                       for (int i = 0; i < vertex; i++) {
+                           list[i].clear();
+                       }
+                       System.out.println("Graph has been cleared");
+                   }
+            
+                   public void printGraph() throws Exception {
+                       for (int i = 0; i < vertex; i++) {
+                           if (list[i].size > 0) {
+                               System.out.print("Vertex " + list[i].head.data + " is connected to: ");
+                               Node<T> currentNode = list[i].head.next;
+                               while (currentNode != null) {
+                                   System.out.print(currentNode.data + " ");
+                                   currentNode = currentNode.next;
+                               }
+                               System.out.println();
+                           }
+                       }
+                       System.out.println();
+                   }
+            
+                   public boolean graphType() {
+                       return isDirected;
+                   }
                }
 
-               System.out.println("Graph awal:");
-               graph.printGraph();
 
-               System.out.print("Masukkan vertex untuk menampilkan derajat: ");
-               int source = scanner.nextInt();
-               graph.degree(source);
-
-               System.out.print("Masukkan edge yang ingin dihapus <source> <destination>: ");
-               int removeSource = scanner.nextInt();
-               int removeDestination = scanner.nextInt();
-               graph.removeEdge(removeSource, removeDestination);
-
-               System.out.println("Graph setelah penghapusan edge:");
-               graph.printGraph();
-
-               scanner.close();
-           }
-     }
-      ```
+            ```
         
-     + Output
+           Class GraphMain
+        ``` java
+        package Graph.Tugas;
+    
+          import java.util.Scanner;
+    
+          public class GraphMain {
+          public static void main(String[] args) throws Exception {
+          Scanner scanner = new Scanner(System.in);
+    
+                  System.out.print("Masukkan jumlah vertex: ");
+                  int vertexCount = scanner.nextInt();
+                  System.out.print("Masukkan direct/undirected [1|0]: ");
+                  int directed = scanner.nextInt();
+                  Graph<String> graph = new Graph<>(vertexCount, directed == 1);
+                  System.out.println("Masukkan data vertex:");
+                  for (int i = 0; i < vertexCount; i++) {
+                      String vertex = scanner.next();
+                      graph.addVertex(i, vertex);
+                  }
+                  System.out.print("Masukkan jumlah edge: ");
+                  int edgeCount = scanner.nextInt();
+    
+                  System.out.println("Masukkan edge <source> <destination>:");
+                  for (int i = 0; i < edgeCount; i++) {
+                      String source = scanner.next();
+                      String destination = scanner.next();
+                      graph.addEdge(source, destination);
+                  }
+    
+                  System.out.println("Graph awal:");
+                  graph.printGraph();
+    
+                  System.out.print("Masukkan vertex untuk menampilkan derajat: ");
+                  String source = scanner.next();
+                  graph.degree(source);
+    
+                  System.out.print("Masukkan edge yang ingin dihapus <source> <destination>: ");
+                  String removeSource = scanner.next();
+                  String removeDestination = scanner.next();
+                  graph.removeEdge(removeSource, removeDestination);
+    
+                  System.out.println("Graph setelah penghapusan edge:");
+                  graph.printGraph();
+    
+                  scanner.close();
+              }
+          }
 
-      
+        ```
+        
+   + Output
+     ![image.png](assets/Tugas4.1.png)
      
      + GraphArray
 

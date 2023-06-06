@@ -4,7 +4,6 @@ public class Graph<T> {
     int vertex;
     DoubleLinkedList<T>[] list;
     Node right;
-    int index = 0;
     boolean isDirected; // variable to determine the type of graph
 
     public Graph(int vertex, boolean isDirected) {
@@ -16,66 +15,42 @@ public class Graph<T> {
         this.isDirected = isDirected;
     }
 
-    public void addEdge(T source, T destination) {
-//        int index = 0;
-        boolean addStatus = false;
-        for (int i = 0; i < index; i++) {
-            if (list[i].head != null && list[i].head.data.equals(source)) {
-                list[i].addLast(destination);
-                addStatus = true;
-                if (!isDirected) {
-                    boolean destinationExists = false;
-                    Node<T> currentNode = list[i].head.next;
-                    while (currentNode != null) {
-                        if (currentNode.data.equals(destination)) {
-                            destinationExists = true;
-                            break;
-                        }
-                        currentNode = currentNode.next;
-                    }
-                    if (!destinationExists) {
-                        list[i].addLast(destination);
-                    }
-                }
-                break;
+    public void addVertex(int index, T data) {
+        DoubleLinkedList<T> newLink = new DoubleLinkedList<>();
+        newLink.addFirst(data);
+        list[index] = newLink;
+    };
+
+    public void addEdge(T source, T destination) throws Exception {
+        int sourceIndex = getIndex(source);
+        int destinationIndex = getIndex(destination);
+        list[sourceIndex].add(destination, 1);
+        if (!isDirected) {
+            list[destinationIndex].add(source, 1);
+        }
+    }
+
+    private int getIndex(T source) {
+        for (int i = 0; i < vertex; i++) {
+            if (list[i] == source || list[i].head.data.equals(source)) {
+                return i;
             }
         }
-
-        if (!addStatus) {
-            DoubleLinkedList<T> newLinkedList = new DoubleLinkedList<>();
-            newLinkedList.addFirst(source);
-            newLinkedList.addLast(destination);
-
-            list[index] = newLinkedList;
-
-            if (!isDirected) {
-                DoubleLinkedList<T> newLinkedList2 = new DoubleLinkedList<>();
-                newLinkedList2.addFirst(destination);
-                newLinkedList2.addLast(source);
-                list[index + 1] = newLinkedList2;
-            }
-            index++;
-        }
-
-
-//        list[(int) source].addFirst(destination);
-//        if (!isDirected) {
-//            list[(int) destination].addFirst(source);
-//        }
+       return -1;
     }
 
     public void degree(T source) throws Exception {
-        System.out.println("degree vertex " + source + " : " + list[(int) source].size);
+        System.out.println("degree vertex " + source + " : " + list[getIndex(source)].size);
 
         if (isDirected) {
             int totalIn = 0, totalOut = 0;
             for (int i = 0; i < vertex; i++) {
                 for (int j = 0; j < list[i].size; j++) {
-                    if (list[i].get(j) == source) {
+                    if (list[i].get(j) == source || list[i].get(j).equals(source)) {
                         totalIn++;
                     }
                 }
-                totalOut += list[(int) source].size;
+                totalOut += list[getIndex(source)].size;
             }
             System.out.println("Indegree of vertex " + source + " : " + totalIn);
             System.out.println("Outdegree of vertex " + source + " : " + totalOut);
@@ -84,11 +59,34 @@ public class Graph<T> {
 
     }
 
-    public void removeEdge(int source, int destination) throws Exception {
-        list[source].remove(destination);
-        if (!isDirected) {
-            list[destination].remove(source);
+    public void removeEdge(T source, T destination) throws Exception {
+        int sourceIndex = getIndex(source);
+        int destinationIndex = getIndex(destination);
+
+        if (sourceIndex == -1 || destinationIndex == -1) {
+            throw new Exception("Nama daerah tidak ditemukan");
         }
+
+        int index = -1;
+        for (int i = 0; i < list[sourceIndex].size(); i++) {
+            if (list[sourceIndex].get(i).equals(destination)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index != -1) {
+            list[sourceIndex].remove(index);
+            if (!isDirected) {
+                for (int i = 0; i < list[destinationIndex].size(); i++) {
+                    if (list[destinationIndex].get(i).equals(source)) {
+                        list[destinationIndex].remove(i);
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 
     public void removeAllEdge() {
