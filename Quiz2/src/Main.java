@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[] args) {
         // Initialization
         Queue truckQueue = new Queue();
-        Stack woodStack = new Stack(10);
+        Stack woodStack = new Stack();
 
 
         // Memasukkan Queue dari Truck
@@ -15,13 +15,13 @@ public class Main {
             truckQueue.printQueue();
             woodStack.printStack();
             System.out.println("Prosess...");
-            if (!woodStack.isFull()) {
+
                 Truck truck = truckQueue.dequeue();
                 System.out.println("Truck " + truck.getId() + " Sedang menumpuk Kayu");
                 // memindahkan kayu dari truck ke woodStack
                 System.out.println("Truck " + truck.getId() + " Berhasil menumpuk kayu.");
                 woodStack.push(truck);
-            }
+
 
             System.out.println();
         }

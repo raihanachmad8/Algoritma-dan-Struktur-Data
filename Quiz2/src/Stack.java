@@ -1,38 +1,39 @@
 public class Stack {
-    private int[] data;
-    private int top;
+    Node top;
 
-    public Stack(int capacity) {
-        this.data = new int[capacity];
-        this.top = -1;
+    public void push(Truck truck) {
+        Node newNode = new Node(truck);
+        if (top == null) {
+            top = newNode;
+        } else {
+            newNode.setPrev(top);
+            top.setNext(newNode);
+            top = newNode;
+        }
+    }
+
+    public Truck pop() {
+        if (top == null) {
+            return null;
+        }
+        Node temp = top;
+        top = top.getPrev();
+        if (top != null) {
+            top.setNext(null);
+        }
+        return temp.getData();
     }
 
     public boolean isEmpty() {
-        return top == -1;
-    }
-
-    public boolean isFull() {
-        return top == data.length - 1;
-    }
-
-    public void push(Truck truck) {
-        if (isFull()) {
-            System.out.println("Stack penuh tidak dapat mengisi truck tidak dapat mengisi kayu.");
-            return;
-        }
-
-        data[++top] = truck.getId();
+        return top == null;
     }
 
     public void printStack() {
-        if (isEmpty()) {
-            System.out.println("Stack masih kosong");
-            return;
-        }
+        Node current = top;
         System.out.println("Wood Stack:");
-        for (int i = top; i >= 0; i--) {
-            System.out.println("Wood dari truck  " + data[i]);
+        while (current != null) {
+            System.out.println("Kayu truk " + current.getData().getId());
+            current = current.getPrev();
         }
-
     }
 }
